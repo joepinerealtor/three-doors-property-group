@@ -182,6 +182,7 @@ textarea {
   gap: clamp(28px, 5vw, 70px);
   align-items: start;
   padding: clamp(28px, 4vw, 48px) 0 clamp(30px, 4vw, 44px);
+  min-width: 0;
 }
 
 .hero-media {
@@ -212,6 +213,7 @@ textarea {
 
 .hero-copy {
   position: relative;
+  min-width: 0;
   padding: clamp(26px, 4vw, 42px);
   border: 1px solid rgba(181, 161, 108, 0.28);
   border-radius: var(--radius);
@@ -276,6 +278,10 @@ h1 {
   line-height: 0.96;
   letter-spacing: 0.01em;
   text-transform: uppercase;
+}
+
+h1 span {
+  display: block;
 }
 
 h2 {
@@ -839,12 +845,14 @@ p {
 @media (max-width: 720px) {
   .section-shell,
   .section-inner {
-    width: min(1180px, calc(100% - 28px));
+    width: calc(100vw - 28px);
+    max-width: 1180px;
   }
 
   .site-header {
     grid-template-columns: 1fr;
-    width: min(1240px, calc(100% - 24px));
+    width: calc(100vw - 24px);
+    max-width: 1240px;
     gap: 12px;
     padding: 12px;
   }
@@ -861,6 +869,7 @@ p {
   .site-nav {
     grid-column: auto;
     grid-row: auto;
+    width: 100%;
     gap: 12px 18px;
     font-size: 0.74rem;
   }
@@ -894,7 +903,7 @@ p {
   }
 
   h1 {
-    font-size: clamp(2.3rem, 11vw, 3.25rem);
+    font-size: clamp(1.8rem, 8vw, 2.05rem);
   }
 
   h2 {
@@ -902,6 +911,7 @@ p {
   }
 
   .gold-rule {
+    flex-wrap: wrap;
     gap: 9px;
     letter-spacing: 0.1em;
   }
@@ -913,6 +923,13 @@ p {
   .hero-actions,
   .button {
     width: 100%;
+    max-width: 100%;
+  }
+
+  .hero-copy p,
+  .trust-line,
+  .gold-rule strong {
+    overflow-wrap: anywhere;
   }
 
   .trust-line {

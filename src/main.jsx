@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { ArrowRight, CircleDollarSign, Hammer, Home, MapPin, MessageSquare, Phone, ShieldCheck, Signpost, Sparkles } from 'lucide-react';
+import { ArrowRight, CircleDollarSign, Hammer, MapPin, MessageSquare, Phone, ShieldCheck, Signpost } from 'lucide-react';
 import logo from './assets/three-doors-logo.png';
 import brandGraphic from './assets/three-doors-marketing-graphic-cropped.png';
 import './styles.css';
@@ -9,20 +9,20 @@ const options = [
   {
     icon: CircleDollarSign,
     title: 'Cash Offer',
-    description: 'A simpler path for homeowners who want speed, convenience, and fewer moving parts.',
-    points: ['No showings required', 'No major repairs needed', 'Flexible closing timeline', 'Subject to property review'],
+    description: 'For sellers who want a simpler, more direct sale.',
+    points: ['No showings required', 'No major repairs needed', 'Flexible closing timeline'],
   },
   {
     icon: Hammer,
     title: 'Support Through Home Renovations',
-    description: 'For homes that may benefit from updates before going to market, we help you think through the improvements that could unlock stronger value.',
-    points: ['Practical renovation guidance', 'Market focused improvement strategy', 'Support before listing', 'Designed to help maximize buyer interest'],
+    description: 'For homes that may benefit from updates before listing.',
+    points: ['Practical renovation guidance', 'Market focused strategy', 'Support before listing'],
   },
   {
     icon: Signpost,
     title: 'List The Property On The Market As Is',
-    description: 'Sometimes the best move is bringing the property to market exactly as it stands and positioning it for the right buyers.',
-    points: ['Traditional listing strategy', 'As is market positioning', 'Professional marketing', 'Clear pricing guidance'],
+    description: 'For sellers who want to list without taking on major prep work.',
+    points: ['As-is market positioning', 'Professional marketing', 'Clear pricing guidance'],
   },
 ];
 
@@ -41,7 +41,6 @@ function Header() {
       <nav className="site-nav" aria-label="Primary navigation">
         <a href="#options">Options</a>
         <a href="#how-it-works">How It Works</a>
-        <a href="#about">About</a>
         <a href="#contact">Contact</a>
       </nav>
       <a className="nav-cta" href="#contact">
@@ -69,10 +68,13 @@ function Hero() {
       </div>
       <div className="hero-copy">
         <GoldRule label="Flexible solutions. Focused on your goals." />
-        <h1>Three Options For Home Sellers</h1>
+        <h1>
+          <span>Three Options</span>
+          <span>For Home</span>
+          <span>Sellers</span>
+        </h1>
         <p>
-          Whether you want a quick cash offer, help preparing your home for market, or a traditional listing strategy,
-          Three Doors Property Group helps you choose the path that fits your goals.
+          Compare a cash offer, renovation support, or an as-is listing strategy before you decide what to do next.
         </p>
         <div className="hero-actions" aria-label="Hero actions">
           <a className="button button-primary" href="#contact">
@@ -118,8 +120,8 @@ function OptionsSection() {
     <section className="options-section" id="options">
       <div className="section-inner">
         <div className="section-heading">
-          <GoldRule label="One partner. Three doors." />
-          <h2>Compare the path that fits your property, timeline, and goals.</h2>
+          <GoldRule label="The three paths" />
+          <h2>Pick the option that fits your property and timeline.</h2>
         </div>
         <div className="options-grid">
           {options.map((option, index) => (
@@ -137,9 +139,9 @@ function HowItWorks() {
       <div className="section-inner process-grid">
         <div>
           <GoldRule label="How it works" />
-          <h2>You do not have to know which option is right before reaching out.</h2>
+          <h2>You do not need to know the right option before reaching out.</h2>
           <p>
-            That is the point. We help you understand what is possible so you can make a confident decision.
+            Send the property details, talk through your goals, and compare the paths side by side.
           </p>
         </div>
         <div className="steps-list">
@@ -149,28 +151,6 @@ function HowItWorks() {
               <h3>{step}</h3>
             </article>
           ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function AboutSection() {
-  return (
-    <section className="about-section" id="about">
-      <div className="section-inner about-panel">
-        <div className="about-mark" aria-hidden="true">
-          <Home size={52} strokeWidth={1.4} />
-        </div>
-        <div>
-          <GoldRule label="Built for clarity" />
-          <h2>One Partner. Three Doors. Your Best Outcome.</h2>
-          <p>
-            Three Doors Property Group was built to give homeowners more flexibility when it is time to sell. Every
-            property and every situation is different, so the process should not feel one size fits all. Whether speed,
-            strategy, preparation, or simplicity matters most, our role is to help you understand your options and move
-            forward with clarity.
-          </p>
         </div>
       </div>
     </section>
@@ -199,16 +179,16 @@ function LeadForm() {
     <section className="lead-section" id="contact">
       <div className="section-inner lead-grid">
         <div className="lead-copy">
-          <GoldRule label="Explore your selling options" />
-          <h2>Share a few details and we will help you understand the path that may make the most sense.</h2>
+          <GoldRule label="Start here" />
+          <h2>Tell us about the property. We will help you compare your options.</h2>
           <p>
-            The first step is simple: tell us about the property, your timeline, and what matters most. From there,
-            you can compare your options with more clarity.
+            You are not committing to anything by filling this out. It simply gives us enough information to start the
+            conversation.
           </p>
           <div className="contact-highlights">
-            <span><Phone size={16} aria-hidden="true" /> Call or text placeholder</span>
-            <span><MapPin size={16} aria-hidden="true" /> Local market guidance</span>
-            <span><MessageSquare size={16} aria-hidden="true" /> Conversation first</span>
+            <span><Phone size={16} aria-hidden="true" /> Quick follow-up</span>
+            <span><MapPin size={16} aria-hidden="true" /> Property review first</span>
+            <span><MessageSquare size={16} aria-hidden="true" /> Clear next step</span>
           </div>
         </div>
         <div className="tally-frame">
@@ -216,7 +196,7 @@ function LeadForm() {
             <div className="tally-header">
               <img src={logo} alt="" aria-hidden="true" />
               <h3>Explore Your Selling Options</h3>
-              <p>Share a few details about the property and we will help you understand which path may make the most sense.</p>
+              <p>Share the basics and we will follow up to compare your selling paths.</p>
             </div>
 
             <div className="tally-question-grid">
@@ -304,24 +284,6 @@ function LeadForm() {
   );
 }
 
-function FinalCta() {
-  return (
-    <section className="final-cta">
-      <div className="section-inner final-cta-inner">
-        <Sparkles aria-hidden="true" size={28} />
-        <h2>Not sure which door is right for you?</h2>
-        <p>
-          That is exactly why we start with a conversation. Tell us about the property, and we will help you compare
-          your options clearly.
-        </p>
-        <a className="button button-primary" href="#contact">
-          Start The Conversation <ArrowRight aria-hidden="true" size={18} />
-        </a>
-      </div>
-    </section>
-  );
-}
-
 function Footer() {
   return (
     <footer className="site-footer">
@@ -355,9 +317,7 @@ function App() {
         <Hero />
         <OptionsSection />
         <HowItWorks />
-        <AboutSection />
         <LeadForm />
-        <FinalCta />
       </main>
       <Footer />
     </>
