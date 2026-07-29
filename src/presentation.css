@@ -330,9 +330,9 @@
 
 .welcome-portrait img {
   width: 100%;
-  aspect-ratio: 0.78;
-  object-fit: cover;
-  object-position: 6% center;
+  height: auto;
+  object-fit: contain;
+  object-position: center;
 }
 
 .welcome-portrait figcaption {
@@ -922,10 +922,6 @@
 
   .welcome-logo {
     margin-bottom: 30px;
-  }
-
-  .welcome-portrait img {
-    aspect-ratio: 0.72;
   }
 
   .story-grid {
