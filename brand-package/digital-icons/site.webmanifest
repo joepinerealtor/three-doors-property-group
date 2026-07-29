@@ -1,0 +1,19 @@
+{
+  "name": "Three Doors Property Group",
+  "short_name": "Three Doors",
+  "icons": [
+    {
+      "src": "three-doors-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "three-doors-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#0A1832",
+  "background_color": "#F7F4ED",
+  "display": "standalone"
+}

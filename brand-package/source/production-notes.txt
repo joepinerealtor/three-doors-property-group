@@ -1,0 +1,24 @@
+THREE DOORS PROPERTY GROUP - EXACT-ARTWORK PRODUCTION NOTES
+
+The supplied raster logo is the source of truth.
+No replacement mark, replacement type, or interpreted redraw is included.
+
+Preferred use:
+  Light backgrounds: full-logo-full-color-transparent
+  Dark backgrounds: full-logo-reverse-transparent
+  Small or square spaces: icon
+  Browser tabs: favicon.ico
+  Installed web apps: site.webmanifest
+
+Brand colors sampled from the supplied artwork:
+  Navy  #0A1832  RGB 10 / 24 / 50
+  Gold  #BE9641  RGB 190 / 150 / 65
+
+EPS transparency note:
+  EPS does not support modern alpha transparency. Exact-artwork EPS exports
+  are therefore composited on their intended white or navy production field.
+
+Vector note:
+  SVG and EPS preserve the original raster artwork inside the requested file
+  containers. They are not automatic traces and do not substitute new shapes
+  or typography.

@@ -1,0 +1,31 @@
+{
+  "brand": "Three Doors Property Group",
+  "tagline": "Three options. One trusted partner",
+  "sourcePolicy": "Original supplied artwork preserved; no logo redraw or retyping.",
+  "colors": {
+    "threeDoorsNavy": {
+      "hex": "#0A1832",
+      "rgb": [
+        10,
+        24,
+        50
+      ]
+    },
+    "threeDoorsGold": {
+      "hex": "#BE9641",
+      "rgb": [
+        190,
+        150,
+        65
+      ]
+    },
+    "warmIvory": {
+      "hex": "#F7F4ED",
+      "rgb": [
+        247,
+        244,
+        237
+      ]
+    }
+  }
+}

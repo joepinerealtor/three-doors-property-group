@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  ArrowLeft,
   ArrowRight,
   Building2,
   Check,
@@ -13,6 +12,9 @@ import {
   Home,
   Landmark,
   Link2,
+  MapPin,
+  MessageSquare,
+  Phone,
   Printer,
   Scale,
   Share2,
@@ -26,7 +28,6 @@ import mattHeadshot from './assets/matt-brown-headshot.jpg';
 import './presentation.css';
 
 const PUBLIC_SITE_URL = 'https://3doors.ridge-form.com/';
-const PUBLIC_PRESENTATION_URL = `${PUBLIC_SITE_URL}presentation.html`;
 
 const presentationSections = [
   { href: '#welcome', label: 'Overview' },
@@ -35,6 +36,7 @@ const presentationSections = [
   { href: '#analysis', label: 'Property Review' },
   { href: '#impact', label: 'Community' },
   { href: '#next-steps', label: 'Next Steps' },
+  { href: '#contact', label: 'Contact' },
 ];
 
 const doors = [
@@ -99,6 +101,46 @@ function SectionEyebrow({ children }) {
   );
 }
 
+function SectionCta({ children, label = 'Explore your options' }) {
+  return (
+    <div className="section-cta screen-only">
+      <p>{children}</p>
+      <a href="#contact">
+        {label} <ArrowRight size={17} aria-hidden="true" />
+      </a>
+    </div>
+  );
+}
+
+function FloatingLeadCta() {
+  const [formIsVisible, setFormIsVisible] = React.useState(false);
+
+  React.useEffect(() => {
+    const formSection = document.querySelector('#contact');
+    if (!formSection) return undefined;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setFormIsVisible(entry.isIntersecting),
+      { threshold: 0.08 },
+    );
+
+    observer.observe(formSection);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <a
+      className={`floating-lead-cta screen-only${formIsVisible ? ' is-hidden' : ''}`}
+      href="#contact"
+      aria-label="Ready to explore your options? Go to the information form."
+    >
+      <span>Ready to explore your options?</span>
+      <strong>Tell us about the property</strong>
+      <ArrowRight size={18} aria-hidden="true" />
+    </a>
+  );
+}
+
 function PresentationNav() {
   const [activeHref, setActiveHref] = React.useState('#welcome');
   const [copied, setCopied] = React.useState(false);
@@ -144,13 +186,13 @@ function PresentationNav() {
     ref.current?.removeAttribute('open');
   };
 
-  const getShareUrl = () => PUBLIC_PRESENTATION_URL;
+  const getShareUrl = () => PUBLIC_SITE_URL;
 
   const handleNativeShare = async () => {
     try {
       await navigator.share({
-        title: 'Three Doors Property Group Presentation',
-        text: 'Explore the Three Doors homeowner solutions and community partnership presentation.',
+        title: 'Three Doors Property Group',
+        text: 'Explore Three Doors homeowner solutions and community partnerships.',
         url: getShareUrl(),
       });
       closeMenu(shareMenuRef);
@@ -183,7 +225,7 @@ function PresentationNav() {
 
   return (
     <header className="presentation-nav screen-only">
-      <a className="presentation-brand" href="./" aria-label="Return to the Three Doors Property Group homepage">
+      <a className="presentation-brand" href="#welcome" aria-label="Three Doors Property Group home">
         <img src={logo} alt="Three Doors Property Group" />
       </a>
       <nav className="presentation-jumps" aria-label="Presentation sections">
@@ -224,12 +266,12 @@ function PresentationNav() {
           {typeof navigator !== 'undefined' && typeof navigator.share === 'function' && (
             <button type="button" onClick={handleNativeShare}>
               <Share2 size={17} aria-hidden="true" />
-              Share this page
+              Share this website
             </button>
           )}
           <button type="button" onClick={handleCopyLink}>
             {copied ? <CheckCircle2 size={17} aria-hidden="true" /> : <Link2 size={17} aria-hidden="true" />}
-            {copied ? 'Link copied' : 'Copy presentation link'}
+            {copied ? 'Link copied' : 'Copy website link'}
           </button>
           <button type="button" onClick={() => window.print()}>
             <Printer size={17} aria-hidden="true" />
@@ -257,9 +299,14 @@ function WelcomeSection() {
             <Sparkles size={22} aria-hidden="true" />
             <p>Helping homeowners. Revitalizing neighborhoods. Giving back.</p>
           </div>
-          <a className="presentation-primary screen-only" href="#about">
-            Begin the conversation <ArrowRight size={18} aria-hidden="true" />
-          </a>
+          <div className="welcome-actions screen-only">
+            <a className="presentation-primary" href="#doors">
+              Explore the three options <ArrowRight size={18} aria-hidden="true" />
+            </a>
+            <a className="presentation-secondary" href="#contact">
+              Tell us about the property
+            </a>
+          </div>
         </div>
         <figure className="welcome-portrait">
           <img src={brandGraphic} alt="Matt Brown presenting the three options available to home sellers" />
@@ -394,6 +441,9 @@ function DoorsSection() {
             );
           })}
         </div>
+        <SectionCta label="Find the right door">
+          Not sure which option fits? Start with a no-pressure property review.
+        </SectionCta>
       </div>
     </section>
   );
@@ -434,6 +484,9 @@ function AnalysisSection() {
           <Check size={24} aria-hidden="true" />
           <p><strong>No pressure. No assumed answer.</strong> The homeowner’s best result is the priority.</p>
         </div>
+        <SectionCta label="Start your property review">
+          Share the basics when you are ready. Matt will help you compare the paths clearly.
+        </SectionCta>
       </div>
     </section>
   );
@@ -497,6 +550,165 @@ function PartnersSection() {
             promise is simple: lead with integrity, provide options, restore communities, and give back.
           </p>
         </div>
+        <SectionCta label="Start a conversation">
+          Have a homeowner, property, or community partnership in mind? Let’s talk about the next step.
+        </SectionCta>
+      </div>
+    </section>
+  );
+}
+
+function Field({ label, children }) {
+  return (
+    <label className="field">
+      <span>{label}</span>
+      {children}
+    </label>
+  );
+}
+
+function ContactSection() {
+  const [submissionState, setSubmissionState] = React.useState('idle');
+  const formEndpoint = import.meta.env.VITE_FORMSPREE_ENDPOINT;
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    if (!formEndpoint) {
+      setSubmissionState('unavailable');
+      return;
+    }
+
+    const form = event.currentTarget;
+    setSubmissionState('submitting');
+
+    try {
+      const response = await fetch(formEndpoint, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { Accept: 'application/json' },
+      });
+
+      if (!response.ok) throw new Error('Submission failed');
+
+      form.reset();
+      setSubmissionState('success');
+    } catch {
+      setSubmissionState('error');
+    }
+  };
+
+  return (
+    <section className="lead-section presentation-contact screen-only" id="contact">
+      <div className="section-inner lead-grid">
+        <div className="lead-copy">
+          <SectionEyebrow>Ready when you are</SectionEyebrow>
+          <h2>Tell us what you are navigating. We will help you understand the options.</h2>
+          <p>
+            This is simply a starting point. There is no commitment, no assumed answer, and no pressure to move
+            forward.
+          </p>
+          <div className="contact-highlights">
+            <span><Phone size={16} aria-hidden="true" /> A personal follow-up from Matt</span>
+            <span><MapPin size={16} aria-hidden="true" /> Property review before recommendations</span>
+            <span><MessageSquare size={16} aria-hidden="true" /> Clear answers and practical next steps</span>
+          </div>
+          <div className="contact-direct">
+            <a href="tel:+14014992978">401-499-2978</a>
+            <a href="mailto:threedoorspropertygroup@gmail.com">threedoorspropertygroup@gmail.com</a>
+          </div>
+        </div>
+        <div className="tally-frame">
+          <form className="tally-mock" onSubmit={handleSubmit}>
+            <input type="hidden" name="source" value="Three Doors website" />
+            <div className="tally-header">
+              <img src={logo} alt="" aria-hidden="true" />
+              <h3>Start the Conversation</h3>
+              <p>Share what you can. Matt will follow up to learn more and help you identify the right next step.</p>
+            </div>
+
+            <fieldset className="choice-field">
+              <legend>How can we help?</legend>
+              <div className="choice-grid">
+                {['Homeowner or seller', 'Community partner', 'Professional referral', 'Just exploring'].map((choice) => (
+                  <label key={choice}>
+                    <input type="radio" name="contactType" value={choice} required />
+                    <span>{choice}</span>
+                  </label>
+                ))}
+              </div>
+            </fieldset>
+
+            <div className="tally-question-grid">
+              <Field label="First name">
+                <input name="firstName" type="text" autoComplete="given-name" required />
+              </Field>
+              <Field label="Last name">
+                <input name="lastName" type="text" autoComplete="family-name" required />
+              </Field>
+              <Field label="Email">
+                <input name="email" type="email" autoComplete="email" required />
+              </Field>
+              <Field label="Phone">
+                <input name="phone" type="tel" autoComplete="tel" required />
+              </Field>
+            </div>
+
+            <Field label="Property address (if applicable)">
+              <input name="address" type="text" autoComplete="street-address" />
+            </Field>
+
+            <div className="tally-question-grid compact">
+              <Field label="City">
+                <input name="city" type="text" autoComplete="address-level2" />
+              </Field>
+              <Field label="State">
+                <input name="state" type="text" autoComplete="address-level1" />
+              </Field>
+            </div>
+
+            <fieldset className="choice-field">
+              <legend>What would you like to discuss?</legend>
+              <div className="choice-grid">
+                {['Cash offer', 'Renovation support', 'Listing strategy', 'Community partnership', 'Not sure yet'].map((choice) => (
+                  <label key={choice}>
+                    <input type="radio" name="interest" value={choice} required />
+                    <span>{choice}</span>
+                  </label>
+                ))}
+              </div>
+            </fieldset>
+
+            <Field label="Tell us anything else we should know">
+              <textarea name="message" rows="4" />
+            </Field>
+
+            <button className="button button-primary form-button" type="submit" disabled={submissionState === 'submitting'}>
+              {submissionState === 'submitting' ? 'Sending...' : 'Start the Conversation'}
+              <ArrowRight aria-hidden="true" size={18} />
+            </button>
+            <p className="privacy-note">
+              Your information will only be used to follow up about your property, partnership, or selling options.
+            </p>
+            {submissionState === 'success' && (
+              <p className="success-message" role="status">
+                Thank you. Your information has been received and Matt will follow up soon.
+              </p>
+            )}
+            {submissionState === 'unavailable' && (
+              <p className="form-status-message" role="alert">
+                Online submissions are not connected yet. Please call 401-499-2978 or email
+                threedoorspropertygroup@gmail.com.
+              </p>
+            )}
+            {submissionState === 'error' && (
+              <p className="form-status-message" role="alert">
+                We could not send this right now. Please call 401-499-2978 or email
+                threedoorspropertygroup@gmail.com.
+              </p>
+            )}
+          </form>
+        </div>
       </div>
     </section>
   );
@@ -514,17 +726,16 @@ function NextStepsSection() {
           available paths clearly.
         </p>
         <div className="closing-actions screen-only">
-          <a className="presentation-primary" href="./#contact">
+          <a className="presentation-primary" href="#contact">
             Share the property details <ArrowRight size={18} aria-hidden="true" />
-          </a>
-          <a className="presentation-secondary" href="./">
-            <ArrowLeft size={18} aria-hidden="true" /> Return to the website
           </a>
         </div>
         <div className="contact-placeholder">
           <strong>Matt Brown · Three Doors Property Group</strong>
           <a className="presentation-site-link" href={PUBLIC_SITE_URL}>3Doors.Ridge-Form.com</a>
-          <span>Final phone, email, service area, and required brokerage disclosures will be added before publication.</span>
+          <a href="tel:+14014992978">401-499-2978</a>
+          <a href="mailto:threedoorspropertygroup@gmail.com">threedoorspropertygroup@gmail.com</a>
+          <span>Required brokerage disclosures will be added before publication.</span>
         </div>
         <p className="presentation-disclaimer">
           Any offer, renovation option, listing strategy, or contribution is subject to property review, market
@@ -538,7 +749,7 @@ function NextStepsSection() {
 export default function Presentation() {
   React.useEffect(() => {
     const previousTitle = document.title;
-    document.title = 'Homeowner & Community Partner Presentation | Three Doors Property Group';
+    document.title = 'Three Doors Property Group | Three Options For Home Sellers';
     return () => {
       document.title = previousTitle;
     };
@@ -548,6 +759,7 @@ export default function Presentation() {
     <div className="presentation-page">
       <a className="skip-link" href="#welcome">Skip to presentation</a>
       <PresentationNav />
+      <FloatingLeadCta />
       <main>
         <WelcomeSection />
         <AboutSection />
@@ -557,6 +769,7 @@ export default function Presentation() {
         <ImpactSection />
         <PartnersSection />
         <NextStepsSection />
+        <ContactSection />
       </main>
     </div>
   );

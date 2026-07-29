@@ -294,9 +294,8 @@ function Footer() {
           <p>Three options. One trusted partner.</p>
         </div>
         <div className="footer-contact">
-          <p>Phone: (000) 000-0000</p>
-          <p>Email: hello@threedoorspropertygroup.com</p>
-          <p>Service area: Add local market details</p>
+          <p>Phone: <a href="tel:+14014992978">401-499-2978</a></p>
+          <p>Email: <a href="mailto:threedoorspropertygroup@gmail.com">threedoorspropertygroup@gmail.com</a></p>
         </div>
       </div>
       <div className="section-inner footer-bottom">

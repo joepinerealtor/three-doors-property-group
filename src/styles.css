@@ -791,6 +791,18 @@ p {
   font-weight: 700;
 }
 
+.footer-contact a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.footer-contact a:hover,
+.footer-contact a:focus-visible {
+  color: var(--gold);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
 .footer-bottom {
   display: grid;
   gap: 10px;
