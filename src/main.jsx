@@ -42,6 +42,7 @@ function Header() {
         <a href="#options">Options</a>
         <a href="#how-it-works">How It Works</a>
         <a href="#contact">Contact</a>
+        <a href="./presentation.html">Presentation</a>
       </nav>
       <a className="nav-cta" href="#contact">
         Explore My Options
