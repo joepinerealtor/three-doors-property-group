@@ -569,7 +569,7 @@ function Field({ label, children }) {
 
 function ContactSection() {
   const [submissionState, setSubmissionState] = React.useState('idle');
-  const formEndpoint = import.meta.env.VITE_FORMSPREE_ENDPOINT;
+  const formEndpoint = import.meta.env.VITE_FORMSPREE_ENDPOINT || 'https://formspree.io/f/xbdnbawq';
 
   const handleSubmit = async (event) => {
     event.preventDefault();
