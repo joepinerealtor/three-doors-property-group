@@ -22,7 +22,11 @@ import {
 } from 'lucide-react';
 import logo from './assets/three-doors-logo.png';
 import brandGraphic from './assets/three-doors-marketing-graphic-cropped.png';
+import mattHeadshot from './assets/matt-brown-headshot.jpg';
 import './presentation.css';
+
+const PUBLIC_SITE_URL = 'https://3doors.ridge-form.com/';
+const PUBLIC_PRESENTATION_URL = `${PUBLIC_SITE_URL}presentation.html`;
 
 const presentationSections = [
   { href: '#welcome', label: 'Overview' },
@@ -140,7 +144,7 @@ function PresentationNav() {
     ref.current?.removeAttribute('open');
   };
 
-  const getShareUrl = () => `${window.location.origin}${window.location.pathname}`;
+  const getShareUrl = () => PUBLIC_PRESENTATION_URL;
 
   const handleNativeShare = async () => {
     try {
@@ -278,7 +282,13 @@ function AboutSection() {
           </p>
         </div>
         <div className="story-grid">
-          <div className="story-marker" aria-hidden="true">MB</div>
+          <figure className="story-headshot">
+            <img src={mattHeadshot} alt="Matt Brown, founder of Three Doors Property Group" />
+            <figcaption>
+              <strong>Matt Brown</strong>
+              <span>Founder, Three Doors Property Group</span>
+            </figcaption>
+          </figure>
           <div className="story-copy">
             <p>
               Matt began his career in education to be a positive male role model in as many lives as possible. He
@@ -295,7 +305,8 @@ function AboutSection() {
               and improve someone’s future.
             </p>
             <blockquote>
-              “Although my profession has changed, my purpose has not.”
+              “Every property is an opportunity to help a family, strengthen a neighborhood, and improve someone’s
+              future.”
             </blockquote>
           </div>
         </div>
@@ -512,6 +523,7 @@ function NextStepsSection() {
         </div>
         <div className="contact-placeholder">
           <strong>Matt Brown · Three Doors Property Group</strong>
+          <a className="presentation-site-link" href={PUBLIC_SITE_URL}>3Doors.Ridge-Form.com</a>
           <span>Final phone, email, service area, and required brokerage disclosures will be added before publication.</span>
         </div>
         <p className="presentation-disclaimer">
