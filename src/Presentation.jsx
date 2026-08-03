@@ -25,6 +25,7 @@ import {
 import logo from './assets/three-doors-logo.png';
 import brandGraphic from './assets/three-doors-marketing-graphic-cropped.png';
 import mattHeadshot from './assets/matt-brown-headshot.jpg';
+import lightLogo from '../brand-package/exports/png/full-logo-reverse-transparent.png';
 import './presentation.css';
 
 const PUBLIC_SITE_URL = 'https://3doors.ridge-form.com/';
@@ -226,7 +227,7 @@ function PresentationNav() {
   return (
     <header className="presentation-nav screen-only">
       <a className="presentation-brand" href="#welcome" aria-label="Three Doors Property Group home">
-        <img src={logo} alt="Three Doors Property Group" />
+        <img src={lightLogo} alt="Three Doors Property Group" />
       </a>
       <nav className="presentation-jumps" aria-label="Presentation sections">
         {presentationSections.map((section) => (
@@ -289,7 +290,8 @@ function WelcomeSection() {
       <div className="presentation-shell welcome-layout">
         <div className="welcome-copy">
           <SectionEyebrow>Community partnership &amp; homeowner solutions</SectionEyebrow>
-          <img className="welcome-logo" src={logo} alt="Three Doors Property Group" />
+          <img className="welcome-logo logo-on-dark screen-only" src={lightLogo} alt="Three Doors Property Group" />
+          <img className="welcome-logo print-only" src={logo} alt="Three Doors Property Group" />
           <h1>Three options.<br />One trusted partner.</h1>
           <p className="presentation-lede">
             Helping homeowners understand every available path before making one of life’s biggest financial
@@ -718,7 +720,8 @@ function NextStepsSection() {
   return (
     <section className="presentation-sheet presentation-closing" id="next-steps">
       <div className="presentation-shell closing-content">
-        <img src={logo} alt="Three Doors Property Group" />
+        <img className="logo-on-dark screen-only" src={lightLogo} alt="Three Doors Property Group" />
+        <img className="print-only" src={logo} alt="Three Doors Property Group" />
         <SectionEyebrow>Next steps</SectionEyebrow>
         <h2>Let’s look at the property and find the right door together.</h2>
         <p className="presentation-lede">

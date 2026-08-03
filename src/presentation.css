@@ -38,10 +38,13 @@
 }
 
 .presentation-brand {
-  width: 168px;
-  padding: 6px 10px;
-  border-radius: 8px;
-  background: #fff;
+  width: 188px;
+  padding: 0;
+  background: transparent;
+}
+
+.print-only {
+  display: none !important;
 }
 
 .presentation-jumps {
@@ -330,6 +333,12 @@
   padding: 14px 18px;
   border-radius: 14px;
   background: #fff;
+}
+
+.welcome-logo.logo-on-dark {
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
 }
 
 .welcome-promise {
@@ -864,6 +873,12 @@
   background: #fff;
 }
 
+.closing-content > .logo-on-dark {
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
 .closing-content .presentation-eyebrow {
   justify-content: center;
 }
@@ -1247,6 +1262,10 @@
     display: none !important;
   }
 
+  .print-only {
+    display: block !important;
+  }
+
   .presentation-sheet {
     display: flex;
     align-items: center;
@@ -1542,7 +1561,10 @@
 
   .closing-content > img {
     margin-bottom: 0.25in;
-    border: 1px solid #c9c1b1;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
   }
 
   .contact-placeholder {
